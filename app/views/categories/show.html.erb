@@ -5,5 +5,26 @@
   <%= @category.name %>
 </p>
 
+<h3><small>Add Product</small></h3>
+<%= form_with(model: [ @category, @product ]) do |form| %>
+  <div class="col-sm-1"><%= form.label :name %></div>
+  <div class="col-sm-3"><%= form.text_field :name, class:'form-control' %></div>
+  <div class="col-sm-1"><%= form.label :price %></div>
+  <div class="col-sm-3"><%= form.number_field :price, class:'form-control' %></div>
+  <div class="col-sm-1"><%= form.submit 'Create new product', class: 'btn btn-primary'%></div>
+  <div class="clearfix"></div>
+<% end %>
+
+<h3><small>Current Products</small></h3>
+<% if @category.products.count > 0 %>
+  <div class="col-sm-6">Product</div>
+  <div class="col-sm-6">Price</div>
+<%  @category.products.each do |product| %>
+  <div class="col-sm-12"><%= product.name %></div>
+  <div class="col-sm-12"><%= product.price %></div>
+<% end %>
+<% else %>
+  <div class="col-sm-12"><strong>There's no products</strong></div>
+<% end %>
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
